@@ -5,12 +5,13 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	_ "github.com/rizalgowandy/go-swag-sample/docs/echosimple"
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 // @title Echo Swagger Example API
-// @version 1.0.0
-// @description This is a sample of simple server
+// @version 1.0
+// @description This is a sample server server.
 // @termsOfService http://swagger.io/terms/
 
 // @contact.name API Support
@@ -23,21 +24,20 @@ import (
 // @host localhost:3000
 // @BasePath /
 // @schemes http
-
 func main() {
-	// echo instance
+	// Echo instance
 	e := echo.New()
 
-	// midleware
+	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())
 
-	// routes
+	// Routes
 	e.GET("/", HealthCheck)
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
-	//start server
+	// Start server
 	e.Logger.Fatal(e.Start(":3000"))
 }
 
@@ -49,7 +49,6 @@ func main() {
 // @Produce json
 // @Success 200 {object} map[string]interface{}
 // @Router / [get]
-
 func HealthCheck(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"data": "Server is up and running",
